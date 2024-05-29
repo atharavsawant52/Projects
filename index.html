@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>StopWatch</title>
+  </head>
+
+  <style>
+    body {
+      margin: 0%;
+      padding: 0%;
+      background-color: rgb(57, 53, 53);
+    }
+
+    .timer {
+      text-align: center;
+      font-size: 8vh;
+      color: aliceblue;
+    }
+
+    .start {
+      background-color: grey;
+      border: none;
+      color: white;
+      padding: 16px 32px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px;
+      margin: 4px 2px;
+      transition-duration: 0.4s;
+      cursor: pointer;
+  
+    }
+    .start:hover {
+      background-color: rgb(255, 255, 255);
+      color: black;
+    }
+
+    .stop {
+      background-color: grey; 
+      border: none;
+      color: white;
+      padding: 16px 32px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px;
+      margin: 4px 2px;
+      transition-duration: 0.4s;
+      cursor: pointer;
+    }
+    .stop:hover {
+      background-color: rgb(255, 255, 255);
+      color: black;
+    }
+
+    .restart {
+      background-color: grey;
+      border: none;
+      color: white;
+      padding: 16px 32px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px;
+      margin: 4px 2px;
+      transition-duration: 0.4s;
+      cursor: pointer;
+    }
+    .restart:hover {
+      background-color: rgb(255, 255, 255);
+      color: black;
+    }
+
+    .button {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .text{
+      font-size: 5vh;
+      text-align: center;
+      color: aliceblue;
+    }
+  </style>
+
+  <body>
+    <h1 class="text">Giant StopWatch</h1>
+    <div class="timer">
+      <h1 id="displayTime">00:00:00</h1>
+    </div>
+    <div class="button">
+      <button class="start" onclick="startTime()">Start</button>
+      <button class="stop" onclick="stopTime()">Stop</button>
+      <button class="restart" onclick="restartTime()">Reset</button>
+    </div>
+  </body>
+
+  <script>
+    let displayTime = document.getElementById("displayTime");
+
+    let hour = 0;
+    let minute = 0;
+    let second = 0;
+
+    let timer = null;
+
+    function startTime() {
+      if (timer != null) {
+        clearInterval(timer);
+      }
+      timer = setInterval(stopWatch, 1000);
+    }
+
+    function stopTime() {
+      clearInterval(timer);
+    }
+
+    function restartTime() {
+      clearInterval(timer);
+      displayTime.innerHTML = `00:00:00`;
+      second = minute = hour = 0;
+    }
+
+    function stopWatch() {
+      second = second + 1;
+
+      if (second == 60) {
+        minute = minute + 1;
+        second = 0;
+
+        if (minute == 60) {
+          hour = hour + 1;
+          minute = 0;
+          second = 0;
+        }
+      }
+
+      //Conditional (ternary) operator//
+
+      let hourString = hour < 10 ? `0${hour}` : hour;
+      let minuteString = minute < 10 ? `0${minute}` : minute;
+      let secondString = second < 10 ? `0${second}` : second;
+
+      displayTime.innerHTML = `${hourString}:${minuteString}:${secondString}`;
+    }
+  </script>
+</html>
